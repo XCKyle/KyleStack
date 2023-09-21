@@ -1,0 +1,43 @@
+query GetProductBySlug($slug: String!) {
+    products: all_product(where: {slug: $slug}) {
+        total
+        items {
+            description
+            discounted_price
+            name
+            original_price
+            sku
+            slug
+            sub_title
+            title
+            size
+            media {
+                imagesConnection {
+                    edges {
+                        node {
+                            url
+                            title
+                        }
+                    }
+                }
+                thumbnailConnection {
+                    edges {
+                        node {
+                            title
+                            url
+                        }
+                    }
+                }
+            }
+            categoriesConnection(limit: 1) {
+                edges {
+                    node {
+                        ... on Category {
+                            slug
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+query GetProductsByCategorySlug($slug: String!, $limit: Int = 50, $skipSlug: String = "") {
+    products: all_product(where: {categories: {category: {slug: $slug}}, slug_ne: $skipSlug}, limit: $limit) {
+        total
+        items {
+            description
+            discounted_price
+            name
+            original_price
+            sku
+            slug
+            sub_title
+            title
+            media {
+                imagesConnection {
+                    edges {
+                        node {
+                            url
+                            title
+                        }
+                    }
+                }
+                thumbnailConnection {
+                    edges {
+                        node {
+                            title
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    category: all_category(where: {slug: $slug}) {
+        total
+        items {
+            title
+            slug
+        }
+    }
+}
